@@ -1,1 +1,1 @@
-# Indian_Diabetes_Prediction
+# Machine Learning Model for Indian Diabetes Prediction

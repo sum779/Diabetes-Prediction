@@ -7,6 +7,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.impute import SimpleImputer
 
+# Configure the app to be mobile-friendly
+st.set_page_config(layout="wide")
 # Load the dataset
 @st.cache_data
 def load_data():

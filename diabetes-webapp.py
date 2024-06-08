@@ -24,7 +24,7 @@ st.markdown(
     }
     .sidebar .sidebar-content .block-container {
         padding: 1rem;
-    }
+    }s
     .sidebar .stSlider{
         color: #024993!important; /* Tomato color for the slider */
     }
@@ -70,8 +70,8 @@ st.sidebar.info('Please see Patient Data Description for more detail')
 # X AND Y DATA
 feature = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
 target = ['Outcome']
-X = df[feature].values
-Y = df[target].values
+X = df[feature]
+Y = df[target]
 
 # Train-test split
 x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
@@ -81,6 +81,8 @@ fill_zero = SimpleImputer(missing_values=0, strategy="mean")
 x_train = fill_zero.fit_transform(x_train)
 x_test = fill_zero.fit_transform(x_test)
 
+x_train = pd.DataFrame(x_train, columns=feature)
+x_test = pd.DataFrame(x_test, columns=feature)
 # Hyperparameter tuning using GridSearchCV
 param_grid = {
     'n_estimators': [50, 100, 200],
@@ -97,7 +99,7 @@ def train_model(x_train, y_train):
                                cv=5,
                                n_jobs=-1,
                                verbose=0)
-    grid_search.fit(x_train, y_train.ravel())
+    grid_search.fit(x_train, y_train.values.ravel())
     return grid_search.best_estimator_
 
 best_rf = train_model(x_train, y_train)
